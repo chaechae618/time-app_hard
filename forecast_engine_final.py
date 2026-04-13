@@ -47,9 +47,9 @@ def diagnose(df, date_col, value_col):
         clean = values[~null_mask]
         if len(clean) >= 20:
             res = adfuller(clean, autolag='AIC')
-            adf_stat = round(res[0], 4)
-            adf_pvalue = round(res[1], 4)
-            is_stationary = res[1] < 0.05
+            adf_stat = round(float(res[0]), 4)       # float() 추가
+            adf_pvalue = round(float(res[1]), 4)     # float() 추가
+            is_stationary = bool(res[1] < 0.05)     # bool() 추가
     except Exception:
         pass
 
