@@ -718,8 +718,8 @@
 
     .lb-header, .lb-row {
       display: grid;
-      grid-template-columns: 220px 100px 100px 100px 100px 100px 1fr;
-      gap: 10px;
+      grid-template-columns: 180px 90px 90px 90px 80px 70px 70px 1fr;
+      gap: 8px;
       align-items: center;
       min-width: 900px;
     }
@@ -837,10 +837,118 @@
       font-size: 15px;
     }
 
-    .forecast-table th {
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      min-width: 80px;
+      text-align: center;
+      transition: 0.2s;
+    }
+    .process-step.done {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .ps-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ps-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+    .process-arrow {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      color: var(--border-strong);
+      padding-top: 8px;
+    }
+    .interpret-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .interpret-card.good { border-left: 4px solid var(--green); }
+    .interpret-card.warn { border-left: 4px solid var(--yellow); }
+    .interpret-card.bad  { border-left: 4px solid var(--red); }
+    .interpret-card.info { border-left: 4px solid var(--primary); }
+    .interpret-title { font-size: 14px; font-weight: 800; margin-bottom: 4px; }
+    .interpret-desc  { font-size: 13px; color: var(--text-soft); line-height: 1.6; }
+    .preprocess-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      background: var(--surface-soft);
+    }
+    .preprocess-step-num {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .preprocess-method {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .preprocess-why {
+      font-size: 12px;
+      color: var(--text-soft);
+      line-height: 1.5;
+    }
+
+    .forecast-table th { background: var(--surface-soft); }
+    .forecast-table tr:hover td { background: var(--primary-soft); }
+
+    .news-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      background: #fff;
+      transition: 0.2s ease;
+      height: 100%;
+    }
+    .news-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 16px rgba(37,99,235,0.10);
+      transform: translateY(-2px);
+    }
+    .news-source {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    .news-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .news-desc {
       font-size: 13px;
       color: var(--text-soft);
-      font-weight: 700;
+      line-height: 1.5;
     }
 
     
@@ -851,7 +959,8 @@
     .metric-card, .insight-card, .hero-card, .diag-card, .stat-item { border-color: var(--border); }
     .metric-label, .insight-label, .hero-card-label, .diag-label, .stat-label { font-weight:700; }
     .metric-sub, .insight-desc, .chart-title-sub, .panel-desc, .hero-desc, .brand-sub, .upload-sub, .checkbox-desc { line-height: 1.6; }
-    .summary-row .metric-card { min-height: 122px; }
+    .summary-row { grid-template-columns: repeat(4, 1fr); }
+    .summary-row .metric-card { min-height: 110px; }
     .insight-row .insight-card { min-height: 118px; }
     .tab { color: var(--text-soft); }
     .tab.active { box-shadow: 0 8px 20px rgba(37,99,235,0.18); }
@@ -1050,30 +1159,12 @@
               </label>
 
               <label class="checkbox-item">
-                <input type="checkbox" id="m_xgb" checked>
-                <div class="checkbox-text">
-                  <div class="checkbox-name">XGBoost</div>
-                  <div class="checkbox-desc">Lag feature 기반 부스팅 모델</div>
-                </div>
-                <span class="model-tag tag-ml">ML</span>
-              </label>
-
-              <label class="checkbox-item">
                 <input type="checkbox" id="m_rf" checked>
                 <div class="checkbox-text">
                   <div class="checkbox-name">Random Forest</div>
                   <div class="checkbox-desc">비선형 패턴에 강한 앙상블 트리 모델</div>
                 </div>
                 <span class="model-tag tag-ml">ML</span>
-              </label>
-
-              <label class="checkbox-item">
-                <input type="checkbox" id="m_nbeats">
-                <div class="checkbox-text">
-                  <div class="checkbox-name">N-BEATS</div>
-                  <div class="checkbox-desc">기저 확장 기반 딥러닝 예측 모델</div>
-                </div>
-                <span class="model-tag tag-dl">DL</span>
               </label>
             </div>
           </div>
@@ -1118,22 +1209,134 @@
         </section>
 
         <section class="result-shell" id="dashboard">
+
+          <!-- 예측 프로세스 6단계 배너 -->
+          <div id="processBanner" style="display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;">
+            <div class="process-step done" id="ps1">
+              <div class="ps-num">1</div>
+              <div class="ps-label">데이터 수집<br>및 전처리</div>
+            </div>
+            <div class="process-arrow">→</div>
+            <div class="process-step done" id="ps2">
+              <div class="ps-num">2</div>
+              <div class="ps-label">EDA<br>탐색적 분석</div>
+            </div>
+            <div class="process-arrow">→</div>
+            <div class="process-step done" id="ps3">
+              <div class="ps-num">3</div>
+              <div class="ps-label">예측 모형<br>선택</div>
+            </div>
+            <div class="process-arrow">→</div>
+            <div class="process-step done" id="ps4">
+              <div class="ps-num">4</div>
+              <div class="ps-label">모형<br>학습</div>
+            </div>
+            <div class="process-arrow">→</div>
+            <div class="process-step done" id="ps5">
+              <div class="ps-num">5</div>
+              <div class="ps-label">모형<br>평가</div>
+            </div>
+            <div class="process-arrow">→</div>
+            <div class="process-step done" id="ps6">
+              <div class="ps-num">6</div>
+              <div class="ps-label">예측<br>적용</div>
+            </div>
+          </div>
+
           <div class="summary-row" id="metricRow"></div>
+          <div id="interpretRow" style="margin-bottom:16px;"></div>
           <div class="insight-row" id="insightRow"></div>
 
           <div class="tabs">
-            <button class="tab active" onclick="switchTab('forecast', this)">예측 결과</button>
-            <button class="tab" onclick="switchTab('leaderboard', this)">모델 비교</button>
-            <button class="tab" onclick="switchTab('decomp', this)">시계열 분해</button>
-            <button class="tab" onclick="switchTab('residuals', this)">잔차 분석</button>
-            <button class="tab" onclick="switchTab('backtest', this)">백테스트</button>
+            <button class="tab active" onclick="switchTab('eda', this)">📊 EDA 탐색</button>
+            <button class="tab" onclick="switchTab('forecast', this)">🔮 예측 결과</button>
+            <button class="tab" onclick="switchTab('leaderboard', this)">🏆 모델 비교</button>
+            <button class="tab" onclick="switchTab('decomp', this)">🔬 시계열 분해</button>
+            <button class="tab" onclick="switchTab('residuals', this)">📉 잔차 분석</button>
+            <button class="tab" onclick="switchTab('backtest', this)">⏱ 백테스트</button>
+            <button class="tab" onclick="switchTab('insight', this)">🤖 AI 인사이트</button>
           </div>
 
-          <div class="section active" id="tab-forecast">
+          <!-- EDA 탭 (新 추가) -->
+          <div class="section active" id="tab-eda">
+            <div class="info-box" style="margin-bottom:16px;">
+              <strong>Step 2 — 탐색적 데이터 분석(EDA):</strong> 예측 전 데이터의 특성을 파악합니다.
+              정상성, 분포, 자기상관을 확인하여 적절한 모델 선택의 근거로 활용합니다.
+            </div>
+
+            <!-- 전처리 프로세스 카드 -->
+            <div class="chart-wrap" style="margin-bottom:16px;">
+              <div class="chart-title">
+                <div>
+                  <div class="chart-title-main">Step 1 — 데이터 전처리 과정</div>
+                  <div class="chart-title-sub">업로드된 데이터에 자동 적용된 전처리 방법입니다.</div>
+                </div>
+              </div>
+              <div id="preprocessSteps" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px;"></div>
+            </div>
+
+            <!-- 기술통계량 -->
+            <div class="chart-wrap" style="margin-bottom:16px;">
+              <div class="chart-title">
+                <div>
+                  <div class="chart-title-main">기술통계량</div>
+                  <div class="chart-title-sub">데이터의 분포와 중심경향을 수치로 확인합니다.</div>
+                </div>
+              </div>
+              <div id="descStats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px;"></div>
+            </div>
+
+            <!-- 정상성 검정 -->
+            <div class="chart-wrap" style="margin-bottom:16px;">
+              <div class="chart-title">
+                <div>
+                  <div class="chart-title-main">정상성 검정 (ADF Test)</div>
+                  <div class="chart-title-sub">예측 모델 선택의 핵심 — 시계열이 정상성을 갖는지 확인합니다.</div>
+                </div>
+              </div>
+              <div id="stationaryResult" style="margin-top:8px;"></div>
+            </div>
+
+            <!-- 원본 시계열 ACF -->
+            <div class="decomp-grid">
+              <div class="chart-wrap">
+                <div class="chart-title">
+                  <div>
+                    <div class="chart-title-main">원본 데이터 시계열</div>
+                    <div class="chart-title-sub">전체 시계열 패턴 확인</div>
+                  </div>
+                </div>
+                <canvas id="edaRawChart" height="200"></canvas>
+              </div>
+              <div class="chart-wrap">
+                <div class="chart-title">
+                  <div>
+                    <div class="chart-title-main">원본 데이터 ACF</div>
+                    <div class="chart-title-sub">자기상관 — 계절성·주기 탐지에 활용</div>
+                  </div>
+                </div>
+                <canvas id="edaAcfChart" height="200"></canvas>
+              </div>
+            </div>
+
+            <!-- 분포 + 왜도/첨도 해석 -->
+            <div class="chart-wrap" style="margin-top:16px;">
+              <div class="chart-title">
+                <div>
+                  <div class="chart-title-main">분포 특성 분석</div>
+                  <div class="chart-title-sub">왜도와 첨도로 데이터 분포의 대칭성과 뾰족함을 판단합니다.</div>
+                </div>
+              </div>
+              <div id="distInterpret" style="margin-top:8px;"></div>
+            </div>
+          </div>
+
+          <!-- 예측 결과 탭 -->
+          <div class="section" id="tab-forecast">
             <div class="chart-wrap">
               <div class="chart-title">
                 <div>
-                  <div class="chart-title-main">예측값 vs 실제값</div>
+                  <div class="chart-title-main">Step 6 — 예측 결과 (예측 적용)</div>
                   <div class="chart-title-sub">최근 실제값, 피팅값, 미래 예측값과 신뢰구간을 함께 비교합니다.</div>
                 </div>
                 <div class="chart-badge" id="bestModelBadge">앙상블</div>
@@ -1145,7 +1348,7 @@
               <div class="chart-title">
                 <div>
                   <div class="chart-title-main">예측 수치</div>
-                  <div class="chart-title-sub">미래 예측값 상위 구간을 표로 확인합니다.</div>
+                  <div class="chart-title-sub">미래 예측값과 신뢰구간을 표로 확인합니다.</div>
                 </div>
               </div>
               <div id="forecastTableContent"></div>
@@ -1153,28 +1356,42 @@
           </div>
 
           <div class="section" id="tab-leaderboard">
-            <div class="info-box">
-              <strong>모델 비교 기준:</strong> 각 모델의 MAE, RMSE, SMAPE, 학습시간을 함께 비교하고,
-              앙상블 결과를 별도로 확인할 수 있습니다.
+            <div class="info-box" style="margin-bottom:12px;">
+              <strong>Step 5 — 모델 평가:</strong> 각 지표의 의미를 함께 확인하세요.
+              <br>• <strong>MAE/RMSE</strong>: 낮을수록 좋음. RMSE는 큰 오차에 더 민감.
+              <br>• <strong>SMAPE</strong>: 0~200% 범위. <span style="color:var(--green)">10% 이하 우수</span> / <span style="color:var(--yellow)">20% 이하 양호</span> / <span style="color:var(--red)">20% 초과 미흡</span>
+              <br>• <strong>MASE</strong>: 나이브 모델 대비 성능. <span style="color:var(--green)">1 미만이면 나이브보다 우수</span>
+              <br>• <strong>TS(Tracking Signal)</strong>: 편향성 지표. <span style="color:var(--green)">|TS| ≤ 4이면 편향 없음</span> / <span style="color:var(--red)">|TS| > 4이면 편향 의심</span>
+              <br>• <strong>R²</strong>: 설명력. 1에 가까울수록 좋음 (0.8 이상 우수)
             </div>
-
             <div class="leaderboard" id="leaderboardTable"></div>
-
-            <div class="chart-wrap">
+            <div class="chart-wrap" style="margin-top:16px;">
               <div class="chart-title">
                 <div>
                   <div class="chart-title-main">모델별 SMAPE 비교</div>
-                  <div class="chart-title-sub">값이 낮을수록 상대적으로 더 안정적인 예측입니다.</div>
+                  <div class="chart-title-sub">값이 낮을수록 더 안정적인 예측입니다. 나이브 기준선과 비교하세요.</div>
                 </div>
               </div>
               <canvas id="modelCompareChart" height="240"></canvas>
             </div>
+            <div class="chart-wrap" style="margin-top:16px;">
+              <div class="chart-title">
+                <div>
+                  <div class="chart-title-main">앙상블 가중치 (OOS 기반)</div>
+                  <div class="chart-title-sub">Out-of-sample 성능 기반으로 계산된 각 모델의 앙상블 기여도입니다.</div>
+                </div>
+              </div>
+              <canvas id="weightChart" height="180"></canvas>
+            </div>
           </div>
 
           <div class="section" id="tab-decomp">
-            <div class="info-box">
-              <strong>STL 분해:</strong> 시계열을 트렌드, 계절성, 잔차로 나눠서 데이터 구조를 해석합니다.
-            </div>
+            <div class="info-box" style="margin-bottom:12px;">
+              <strong>STL 분해 (Seasonal-Trend decomposition using Loess):</strong>
+              시계열을 트렌드, 계절성, 잔차로 분리합니다.
+              <br>• <strong>트렌드 강도 > 0.5</strong>: 뚜렷한 장기 방향성 존재
+              <br>• <strong>계절성 강도 > 0.5</strong>: 규칙적 주기 패턴 존재 → 계절성 모델(ETS, SARIMA) 유효
+              <br>• <strong>잔차</strong>: 트렌드·계절성으로 설명되지 않는 불규칙 변동 (노이즈)</div>
             <div class="decomp-grid">
               <div class="chart-wrap">
                 <div class="chart-title">
@@ -1219,8 +1436,12 @@
           </div>
 
           <div class="section" id="tab-residuals">
-            <div class="info-box">
-              <strong>잔차 분석:</strong> 예측 오차가 특정 패턴을 가지는지 확인합니다. 이상적인 잔차는 평균이 0에 가깝고 자기상관이 적습니다.
+            <div class="info-box" style="margin-bottom:12px;">
+              <strong>잔차 분석:</strong> 예측 오차의 패턴을 분석합니다.
+              <br>• <strong>평균 잔차 ≈ 0</strong>: 편향 없는 예측
+              <br>• <strong>ACF 막대가 CI 안에 있으면</strong>: 잔차가 백색잡음 → 좋은 모델
+              <br>• <strong>Ljung-Box Q < 20</strong>: 잔차에 자기상관 없음 (백색잡음 통과)
+              <br>• <strong>왜도 ≈ 0, 첨도 ≈ 0</strong>: 정규 분포에 가까운 잔차
             </div>
 
             <div class="decomp-grid">
@@ -1269,8 +1490,12 @@
           </div>
 
           <div class="section" id="tab-backtest">
-            <div class="info-box">
-              <strong>Rolling Origin Backtest:</strong> 여러 시점에서 반복 검증하여 미래 데이터 누수 없이 일반화 성능을 확인합니다.
+            <div class="info-box" style="margin-bottom:12px;">
+              <strong>Rolling Origin Backtest:</strong> 미래 데이터 누수 없이 일반화 성능을 검증합니다.
+              <br>• 여러 시점에서 훈련 → 예측 → 평가를 반복하여 실제 예측 환경을 시뮬레이션
+              <br>• <strong>백테스트 SMAPE ≈ in-sample SMAPE</strong>: 과적합 없음 (일반화 양호)
+              <br>• <strong>백테스트 SMAPE > in-sample × 3배</strong>: 과적합 의심
+              <br>• <strong>TS(Tracking Signal) |TS| > 4</strong>: 특정 방향으로 편향된 예측
             </div>
 
             <div class="chart-wrap">
@@ -1285,6 +1510,54 @@
 
             <div class="stats-grid stats-3" id="backtestStats"></div>
           </div>
+
+          <!-- AI 인사이트 + 뉴스 탭 -->
+          <div class="section" id="tab-insight">
+
+            <!-- AI 인사이트 섹션 -->
+            <div class="chart-wrap" style="margin-bottom:20px;">
+              <div class="chart-title">
+                <div>
+                  <div class="chart-title-main">🤖 AI 인사이트 리포트</div>
+                  <div class="chart-title-sub">예측 결과를 바탕으로 Claude AI가 생성한 실무 인사이트입니다.</div>
+                </div>
+                <button onclick="loadInsight()" id="insightBtn"
+                  style="padding:10px 18px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;">
+                  ✨ AI 인사이트 생성
+                </button>
+              </div>
+              <div id="insightResult" style="margin-top:12px;">
+                <div style="padding:32px;text-align:center;color:var(--text-soft);font-size:15px;background:var(--surface-soft);border-radius:14px;">
+                  위 버튼을 클릭하면 예측 결과를 바탕으로 AI 인사이트가 생성됩니다.
+                </div>
+              </div>
+            </div>
+
+            <!-- 뉴스 섹션 -->
+            <div class="chart-wrap">
+              <div class="chart-title">
+                <div>
+                  <div class="chart-title-main">📰 관련 뉴스</div>
+                  <div class="chart-title-sub">분석 데이터와 관련된 최신 뉴스를 확인하세요.</div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                  <input id="newsKeyword" type="text" placeholder="키워드 입력 (예: 반도체, 자동차)"
+                    style="padding:8px 12px;border:1px solid var(--border-strong);border-radius:10px;font-size:14px;width:220px;outline:none;">
+                  <button onclick="loadNews()" id="newsBtn"
+                    style="padding:10px 18px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;">
+                    🔍 뉴스 검색
+                  </button>
+                </div>
+              </div>
+              <div id="newsResult" style="margin-top:12px;">
+                <div style="padding:32px;text-align:center;color:var(--text-soft);font-size:15px;background:var(--surface-soft);border-radius:14px;">
+                  키워드를 입력하고 검색하면 관련 최신 뉴스가 표시됩니다.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
         </section>
       </main>
     </div>
@@ -1304,6 +1577,12 @@
       charts: {},
       _acfFromAPI: null,
       _pacfFromAPI: null,
+      _rawAcf: null,
+      _diagnostics: null,
+      _preprocessInfo: null,
+      _naiveSmape: 0,
+      _strategy: '',
+      _oosSMAPEs: {},
     };
 
     const uploadZone = document.getElementById('uploadZone');
@@ -1497,9 +1776,7 @@
       const modelMap = {
         'm_arima':'arima',
         'm_ets':'ets',
-        'm_xgb':'xgb',
         'm_rf':'rf',
-        'm_nbeats':'nbeats',
       };
 
       const selectedModels = Object.entries(modelMap)
@@ -1575,6 +1852,9 @@
           mape: data.ensemble.mape,
           r2: data.ensemble.r2,
           mase: data.ensemble.mase,
+          rsfe: data.ensemble.rsfe ?? 0,
+          ts: data.ensemble.ts ?? 0,
+          bias_status: data.ensemble.bias_status ?? '편향 없음',
         };
 
         const modelResults = data.modelResults.map(m => ({
@@ -1584,6 +1864,10 @@
           rmse: m.rmse,
           r2: m.r2,
           mase: m.mase,
+          mape: m.mape ?? 0,
+          rsfe: m.rsfe ?? 0,
+          ts: m.ts ?? 0,
+          bias_status: m.bias_status ?? '편향 없음',
           color: m.color,
           fitted: m.fitted,
           trainTime: m.trainTime,
@@ -1603,6 +1887,12 @@
         state.results = { modelResults, ensemble, stl, backtest, horizon, ci };
         state._acfFromAPI = data.acf?.vals || null;
         state._pacfFromAPI = null;
+        state._rawAcf = data.rawAcf || null;
+        state._diagnostics = data.diagnostics || null;
+        state._preprocessInfo = data.preprocessInfo || null;
+        state._naiveSmape = data.naiveSmape || 0;
+        state._strategy = data.strategy || '';
+        state._oosSMAPEs = data.oosSMAPEs || {};
 
         updateProgress(100, '완료');
         await sleep(180);
@@ -1630,10 +1920,13 @@
       const best = sorted[0];
 
       renderMetricCards(ensemble);
+      renderInterpretCards(ensemble);
       renderInsights(ensemble, best, stl);
+      renderEDA();
       renderForecastChart(ensemble, horizon, ci);
       renderLeaderboard(sorted, ensemble);
       renderModelCompare(sorted, ensemble);
+      renderWeightChart(modelResults);
       renderDecompCharts(stl);
       renderResidualCharts(ensemble.residuals, state.values);
       if (backtest?.length) renderBacktest(backtest);
@@ -1642,50 +1935,217 @@
       document.getElementById('bestModelBadge').textContent = `앙상블 · ${modelResults.length}개 모델`;
     }
 
+    // ── EDA 렌더링 ────────────────────────────────────────
+    function renderEDA() {
+      const d = state._diagnostics;
+      const p = state._preprocessInfo;
+      if (!d) return;
+
+      // 전처리 카드
+      document.getElementById('preprocessSteps').innerHTML = `
+        <div class="preprocess-card">
+          <div class="preprocess-step-num">① 결측치 처리</div>
+          <div class="preprocess-method">${d.missingMethod}</div>
+          <div class="preprocess-why">시계열 연속성 유지를 위해 주변 값을 활용한 보간법을 적용합니다.</div>
+        </div>
+        <div class="preprocess-card">
+          <div class="preprocess-step-num">② 이상치 처리</div>
+          <div class="preprocess-method">${d.outlierMethod}</div>
+          <div class="preprocess-why">IQR 기준 2.5배 범위를 벗어나는 극단치를 클리핑하여 모델 왜곡을 방지합니다.</div>
+        </div>
+        <div class="preprocess-card">
+          <div class="preprocess-step-num">③ 정규화</div>
+          <div class="preprocess-method">${d.normMethod}</div>
+          <div class="preprocess-why">RevIN은 입력 정규화 후 역변환으로 원본 스케일 예측을 보장합니다.${p?.logApplied ? ' 로그 변환이 추가로 적용되었습니다.' : ''}</div>
+        </div>
+      `;
+
+      // 기술통계량
+      const freqMap = {'MS':'월별','D':'일별','W':'주별','H':'시간별','QS':'분기별','unknown':'알수없음'};
+      document.getElementById('descStats').innerHTML = `
+        <div class="diag-card"><div class="diag-label">데이터 수</div><div class="diag-value ok">${d.n?.toLocaleString()}</div></div>
+        <div class="diag-card"><div class="diag-label">빈도</div><div class="diag-value ok">${freqMap[d.freq]||d.freq}</div></div>
+        <div class="diag-card"><div class="diag-label">결측치</div><div class="diag-value ${d.nullCount>0?'warn':'ok'}">${d.nullCount}개</div></div>
+        <div class="diag-card"><div class="diag-label">이상치</div><div class="diag-value ${d.outlierCount>0?'warn':'ok'}">${d.outlierCount}개 (${d.outlierPct}%)</div></div>
+        <div class="diag-card"><div class="diag-label">평균</div><div class="diag-value">${(+d.mean).toFixed(2)}</div></div>
+        <div class="diag-card"><div class="diag-label">중앙값</div><div class="diag-value">${(+d.median).toFixed(2)}</div></div>
+        <div class="diag-card"><div class="diag-label">표준편차</div><div class="diag-value">${(+d.std).toFixed(2)}</div></div>
+        <div class="diag-card"><div class="diag-label">최솟값</div><div class="diag-value">${(+d.min).toFixed(2)}</div></div>
+        <div class="diag-card"><div class="diag-label">최댓값</div><div class="diag-value">${(+d.max).toFixed(2)}</div></div>
+        <div class="diag-card"><div class="diag-label">왜도</div><div class="diag-value ${Math.abs(d.skewness)>1?'warn':'ok'}">${(+d.skewness).toFixed(3)}</div></div>
+        <div class="diag-card"><div class="diag-label">첨도</div><div class="diag-value ${Math.abs(d.kurtosis)>3?'warn':'ok'}">${(+d.kurtosis).toFixed(3)}</div></div>
+        <div class="diag-card"><div class="diag-label">기간</div><div class="diag-value ok" style="font-size:13px;">${d.dateStart?.slice(0,10)} ~</div></div>
+      `;
+
+      // 정상성 검정
+      const isStat = d.isStationary;
+      const pval = d.adfPvalue;
+      const statColor = isStat ? 'var(--green)' : 'var(--red)';
+      const statLabel = isStat === null ? '데이터 부족' : (isStat ? '정상성 시계열' : '비정상성 시계열');
+      document.getElementById('stationaryResult').innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="diag-card" style="border-left:4px solid ${statColor};">
+            <div class="diag-label">ADF 검정 결과</div>
+            <div class="diag-value" style="color:${statColor};">${statLabel}</div>
+            <div style="font-size:13px;color:var(--text-soft);margin-top:6px;">
+              p-value: <strong>${pval ?? 'N/A'}</strong> ${pval !== null ? (pval < 0.05 ? '(p < 0.05 → 정상성 채택)' : '(p ≥ 0.05 → 비정상성)') : ''}
+            </div>
+          </div>
+          <div class="diag-card" style="border-left:4px solid var(--primary);">
+            <div class="diag-label">모델 전략</div>
+            <div class="diag-value" style="font-size:16px;">${state._strategy || '-'}</div>
+            <div style="font-size:13px;color:var(--text-soft);margin-top:6px;">
+              ${isStat === false ? '⚠️ 비정상성 → ARIMA 차분(d≥1) 자동 적용됨' : isStat ? '✅ 정상성 → 모든 모델 적합' : ''}
+            </div>
+          </div>
+        </div>
+      `;
+
+      // 원본 시계열 차트
+      const n = Math.min(state.dates.length, 200);
+      makeLineChart('edaRawChart', state.dates.slice(-n), state.values.slice(-n), '#2563eb', '원본 시계열');
+
+      // 원본 ACF 차트
+      if (state._rawAcf?.vals?.length) {
+        const lagLabels = Array.from({length: state._rawAcf.vals.length}, (_,i) => i+1);
+        makeCorrChart('edaAcfChart', lagLabels, state._rawAcf.vals, state._rawAcf.confBound, '#7c3aed', '자기상관(ACF)');
+      }
+
+      // 분포 해석
+      const sk = +d.skewness, ku = +d.kurtosis;
+      const skDesc = Math.abs(sk) < 0.5 ? '거의 대칭 분포' : (sk > 0 ? '오른쪽 꼬리 분포 (양의 왜도)' : '왼쪽 꼬리 분포 (음의 왜도)');
+      const kuDesc = Math.abs(ku) < 1 ? '정규분포와 유사한 첨도' : (ku > 0 ? '뾰족한 분포 (이상치 가능성)' : '납작한 분포');
+      document.getElementById('distInterpret').innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+          <div class="diag-card" style="border-left:4px solid var(--primary);">
+            <div class="diag-label">왜도 (Skewness)</div>
+            <div class="diag-value">${sk.toFixed(3)}</div>
+            <div style="font-size:13px;color:var(--text-soft);margin-top:4px;">${skDesc}</div>
+          </div>
+          <div class="diag-card" style="border-left:4px solid var(--purple);">
+            <div class="diag-label">첨도 (Kurtosis)</div>
+            <div class="diag-value">${ku.toFixed(3)}</div>
+            <div style="font-size:13px;color:var(--text-soft);margin-top:4px;">${kuDesc}</div>
+          </div>
+          <div class="diag-card" style="border-left:4px solid var(--green);">
+            <div class="diag-label">변동계수 (CV)</div>
+            <div class="diag-value">${d.mean != 0 ? ((+d.std / Math.abs(+d.mean))*100).toFixed(1) + '%' : 'N/A'}</div>
+            <div style="font-size:13px;color:var(--text-soft);margin-top:4px;">평균 대비 변동성. 30% 초과시 변동 큰 시계열</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ── 해석 카드 (성능 평가 해석) ─────────────────────────
+    function renderInterpretCards(ensemble) {
+      const smape = ensemble.smape;
+      const mase = ensemble.mase;
+      const ts = ensemble.ts ?? 0;
+      const naiveSmape = state._naiveSmape;
+
+      let smapeClass = 'good', smapeMsg = `SMAPE ${smape.toFixed(2)}% — 우수한 예측 정확도입니다.`;
+      if (smape > 20) { smapeClass = 'bad'; smapeMsg = `SMAPE ${smape.toFixed(2)}% — 예측 오차가 큰 편입니다. 데이터 특성을 재검토하세요.`; }
+      else if (smape > 10) { smapeClass = 'warn'; smapeMsg = `SMAPE ${smape.toFixed(2)}% — 양호한 수준이나 개선 여지가 있습니다.`; }
+
+      let maseClass = 'good', maseMsg = `MASE ${mase.toFixed(3)} < 1 — 나이브 모델 대비 ${((1-mase)*100).toFixed(1)}% 더 정확합니다.`;
+      if (mase >= 1) { maseClass = 'warn'; maseMsg = `MASE ${mase.toFixed(3)} ≥ 1 — 나이브 모델(단순 반복)보다 성능이 낮습니다.`; }
+
+      let tsClass = 'good', tsMsg = `TS = ${ts.toFixed(2)} (|TS| ≤ 4) — ${ensemble.bias_status}. 편향 없는 예측입니다.`;
+      if (Math.abs(ts) > 4) { tsClass = 'bad'; tsMsg = `TS = ${ts.toFixed(2)} (|TS| > 4) — ${ensemble.bias_status}. 편향된 예측입니다.`; }
+
+      let r2Class = ensemble.r2 >= 0.8 ? 'good' : (ensemble.r2 >= 0.5 ? 'warn' : 'bad');
+      let r2Msg = `R² = ${Math.max(0,ensemble.r2).toFixed(3)} — 데이터 변동의 ${(Math.max(0,ensemble.r2)*100).toFixed(1)}%를 모델이 설명합니다.`;
+
+      document.getElementById('interpretRow').innerHTML = `
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">
+          <div class="interpret-card ${smapeClass}">
+            <div class="interpret-title">📊 예측 정확도 (SMAPE)</div>
+            <div class="interpret-desc">${smapeMsg}<br><span style="font-size:12px;color:var(--text-muted);">기준: 10% 이하 우수 / 20% 이하 양호 / 20% 초과 미흡</span></div>
+          </div>
+          <div class="interpret-card ${maseClass}">
+            <div class="interpret-title">📐 나이브 대비 성능 (MASE)</div>
+            <div class="interpret-desc">${maseMsg}<br><span style="font-size:12px;color:var(--text-muted);">나이브 SMAPE: ${naiveSmape.toFixed(2)}% | 기준: MASE < 1이면 나이브보다 우수</span></div>
+          </div>
+          <div class="interpret-card ${tsClass}">
+            <div class="interpret-title">🎯 예측 편향성 (Tracking Signal)</div>
+            <div class="interpret-desc">${tsMsg}<br><span style="font-size:12px;color:var(--text-muted);">RSFE = ${(ensemble.rsfe??0).toFixed(2)} | 기준: |TS| ≤ 4이면 편향 없음</span></div>
+          </div>
+          <div class="interpret-card ${r2Class}">
+            <div class="interpret-title">📈 설명력 (R²)</div>
+            <div class="interpret-desc">${r2Msg}<br><span style="font-size:12px;color:var(--text-muted);">기준: 0.8 이상 우수 / 0.5 이상 양호</span></div>
+          </div>
+        </div>
+      `;
+    }
+
     function renderMetricCards(ensemble) {
+      const smapeColor = ensemble.smape <= 10 ? 'var(--green)' : ensemble.smape <= 20 ? 'var(--yellow)' : 'var(--red)';
+      const maseColor = ensemble.mase < 1 ? 'var(--green)' : 'var(--red)';
+      const tsColor = Math.abs(ensemble.ts??0) <= 4 ? 'var(--green)' : 'var(--red)';
       document.getElementById('metricRow').innerHTML = `
         <div class="metric-card">
           <div class="metric-label">MAE</div>
-          <div class="metric-value">${ensemble.mae.toFixed(2)}</div>
-          <div class="metric-sub">평균 절대 오차</div>
+          <div class="metric-value">${(+ensemble.mae).toFixed(2)}</div>
+          <div class="metric-sub">평균 절대 오차 · 낮을수록 좋음</div>
         </div>
         <div class="metric-card">
           <div class="metric-label">SMAPE</div>
-          <div class="metric-value">${ensemble.smape.toFixed(2)}%</div>
-          <div class="metric-sub">상대 오차 비교 핵심 지표</div>
+          <div class="metric-value" style="color:${smapeColor}">${(+ensemble.smape).toFixed(2)}%</div>
+          <div class="metric-sub">대칭 절대 오차율 · 10%↓ 우수</div>
         </div>
         <div class="metric-card">
           <div class="metric-label">RMSE</div>
-          <div class="metric-value">${ensemble.rmse.toFixed(2)}</div>
-          <div class="metric-sub">큰 오차에 더 민감한 지표</div>
+          <div class="metric-value">${(+ensemble.rmse).toFixed(2)}</div>
+          <div class="metric-sub">큰 오차에 민감 · 낮을수록 좋음</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">MASE</div>
+          <div class="metric-value" style="color:${maseColor}">${(+ensemble.mase).toFixed(3)}</div>
+          <div class="metric-sub">나이브 대비 성능 · 1↓이면 우수</div>
         </div>
         <div class="metric-card">
           <div class="metric-label">R²</div>
-          <div class="metric-value">${Math.max(0, ensemble.r2).toFixed(3)}</div>
-          <div class="metric-sub">설명력 지표</div>
+          <div class="metric-value">${Math.max(0, +ensemble.r2).toFixed(3)}</div>
+          <div class="metric-sub">설명력 · 1에 가까울수록 좋음</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">MAPE</div>
+          <div class="metric-value">${(+ensemble.mape).toFixed(2)}%</div>
+          <div class="metric-sub">절대 백분율 오차 · 0값 주의</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">RSFE</div>
+          <div class="metric-value">${(+(ensemble.rsfe??0)).toFixed(2)}</div>
+          <div class="metric-sub">누적 오차합 · 0에 가까울수록 좋음</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">TS (편향)</div>
+          <div class="metric-value" style="color:${tsColor}">${(+(ensemble.ts??0)).toFixed(2)}</div>
+          <div class="metric-sub">추적신호 · |TS|≤4 편향 없음</div>
         </div>
       `;
     }
 
     function renderInsights(ensemble, best, stl) {
-      const seasonLabel = stl.seasonStrength > 0.5 ? '강함' : '약함';
+      const seasonLabel = stl.seasonStrength > 0.5 ? '강함 (계절성 모델 유효)' : '약함';
       const trendLabel = stl.trendStrength > 0.5 ? '뚜렷함' : '약함';
+      const biasLabel = Math.abs(ensemble.ts??0) <= 4 ? '✅ 편향 없음' : '⚠️ ' + (ensemble.bias_status || '편향 감지');
 
       document.getElementById('insightRow').innerHTML = `
         <div class="insight-card">
           <div class="insight-label">최적 개별 모델</div>
           <div class="insight-value">${best?.name || '-'}</div>
-          <div class="insight-desc">개별 모델 중 가장 낮은 SMAPE를 기록한 모델입니다.</div>
+          <div class="insight-desc">SMAPE ${best?.smape?.toFixed(2)}% — 개별 모델 중 최우수</div>
         </div>
         <div class="insight-card">
-          <div class="insight-label">구조적 패턴 해석</div>
+          <div class="insight-label">데이터 구조</div>
           <div class="insight-value">트렌드 ${trendLabel}</div>
-          <div class="insight-desc">계절성은 ${seasonLabel}으로 감지되었습니다.</div>
+          <div class="insight-desc">계절성 ${seasonLabel} · 주기 ${stl.period}개</div>
         </div>
         <div class="insight-card">
-          <div class="insight-label">앙상블 해석</div>
-          <div class="insight-value">${ensemble.smape.toFixed(2)}% SMAPE</div>
-          <div class="insight-desc">핵심 결과는 아래 탭에서 상세히 확인할 수 있습니다.</div>
+          <div class="insight-label">예측 편향 판정</div>
+          <div class="insight-value">${biasLabel}</div>
+          <div class="insight-desc">TS = ${(ensemble.ts??0).toFixed(2)} · 기준: |TS| ≤ 4</div>
         </div>
       `;
     }
@@ -1791,11 +2251,13 @@
     }
 
     function renderLeaderboard(sorted, ensemble) {
-      const maxSMAPE = Math.max(...sorted.map(m => m.smape), ensemble.smape);
+      const maxSMAPE = Math.max(...sorted.map(m => m.smape), ensemble.smape, 0.01);
 
       const rows = sorted.map((m, i) => {
         const isBest = i === 0;
         const barW = Math.max(5, (1 - m.smape / maxSMAPE) * 100);
+        const tsColor = Math.abs(m.ts??0) <= 4 ? 'var(--green)' : 'var(--red)';
+        const maseColor = (m.mase??0) < 1 ? 'var(--green)' : 'var(--red)';
         return `
           <div class="lb-row">
             <div class="model-name">
@@ -1803,11 +2265,12 @@
               <span>${m.name}</span>
               ${isBest ? `<span class="best-badge">BEST</span>` : ''}
             </div>
-            <div class="metric-val">${m.mae.toFixed(3)}</div>
-            <div class="metric-val">${m.rmse.toFixed(3)}</div>
-            <div class="metric-val">${m.smape.toFixed(2)}%</div>
-            <div class="metric-val">${(m.mase ?? 0).toFixed(3)}</div>
-            <div class="metric-val">${(m.trainTime ?? 0).toFixed(1)}s</div>
+            <div class="metric-val">${(+m.mae).toFixed(3)}</div>
+            <div class="metric-val">${(+m.rmse).toFixed(3)}</div>
+            <div class="metric-val">${(+m.smape).toFixed(2)}%</div>
+            <div class="metric-val" style="color:${maseColor}">${(+(m.mase??0)).toFixed(3)}</div>
+            <div class="metric-val" style="color:${tsColor}">${(+(m.ts??0)).toFixed(2)}</div>
+            <div class="metric-val">${(+(m.trainTime??0)).toFixed(1)}s</div>
             <div class="bar-cell">
               <div class="bar-track">
                 <div class="bar-fill" style="width:${barW}%; background:${m.color};"></div>
@@ -1818,6 +2281,8 @@
       }).join('');
 
       const ensBarW = Math.max(5, (1 - ensemble.smape / maxSMAPE) * 100);
+      const ensTsColor = Math.abs(ensemble.ts??0) <= 4 ? 'var(--green)' : 'var(--red)';
+      const ensMaseColor = (ensemble.mase??0) < 1 ? 'var(--green)' : 'var(--red)';
 
       document.getElementById('leaderboardTable').innerHTML = `
         <div class="lb-header">
@@ -1826,6 +2291,7 @@
           <div>RMSE</div>
           <div>SMAPE</div>
           <div>MASE</div>
+          <div>TS</div>
           <div>시간</div>
           <div>상대 성능</div>
         </div>
@@ -1836,10 +2302,11 @@
             <span>앙상블</span>
             <span class="best-badge">Ensemble</span>
           </div>
-          <div class="metric-val">${ensemble.mae.toFixed(3)}</div>
-          <div class="metric-val">${ensemble.rmse.toFixed(3)}</div>
-          <div class="metric-val">${ensemble.smape.toFixed(2)}%</div>
-          <div class="metric-val">${(ensemble.mase ?? 0).toFixed(3)}</div>
+          <div class="metric-val">${(+ensemble.mae).toFixed(3)}</div>
+          <div class="metric-val">${(+ensemble.rmse).toFixed(3)}</div>
+          <div class="metric-val">${(+ensemble.smape).toFixed(2)}%</div>
+          <div class="metric-val" style="color:${ensMaseColor}">${(+(ensemble.mase??0)).toFixed(3)}</div>
+          <div class="metric-val" style="color:${ensTsColor}">${(+(ensemble.ts??0)).toFixed(2)}</div>
           <div class="metric-val">-</div>
           <div class="bar-cell">
             <div class="bar-track">
@@ -1848,6 +2315,47 @@
           </div>
         </div>
       `;
+    }
+
+    function renderWeightChart(modelResults) {
+      destroyChart('weightChart');
+      const oos = state._oosSMAPEs || {};
+      const names = modelResults.map(m => m.name);
+      const rawW = names.map(n => 1 / Math.max(oos[n] || 10, 1));
+      const total = rawW.reduce((a,b)=>a+b,0) || 1;
+      const weights = rawW.map(w => +((w/total*100).toFixed(1)));
+      const colors = modelResults.map(m => m.color);
+
+      const ctx = document.getElementById('weightChart').getContext('2d');
+      state.charts.weightChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: names,
+          datasets: [{
+            label: '앙상블 가중치 (%)',
+            data: weights,
+            backgroundColor: colors.map(c => c + '99'),
+            borderColor: colors,
+            borderWidth: 1.4,
+            borderRadius: 8,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#111827',
+              callbacks: { label: ctx => ` ${ctx.parsed.y.toFixed(1)}%` }
+            }
+          },
+          scales: {
+            x: { ticks: { color: '#667085' }, grid: { color: '#eef2f7' } },
+            y: { ticks: { color: '#667085' }, grid: { color: '#eef2f7' },
+                 title: { display: true, text: '가중치 (%)', color: '#667085' } }
+          }
+        }
+      });
     }
 
     function renderModelCompare(sorted, ensemble) {
@@ -2069,6 +2577,11 @@
       const avgSMAPE = windows.reduce((a,w)=>a+w.smape,0)/windows.length;
       const minSMAPE = Math.min(...windows.map(w=>w.smape));
       const maxSMAPE = Math.max(...windows.map(w=>w.smape));
+      const avgTS = windows.reduce((a,w)=>a+(w.ts??0),0)/windows.length;
+      const ensSMAPE = state.results?.ensemble?.smape ?? 0;
+      const overfitRatio = ensSMAPE > 0 ? (avgSMAPE / ensSMAPE).toFixed(1) : '-';
+      const overfitClass = parseFloat(overfitRatio) > 3 ? 'err' : 'ok';
+      const tsClass = Math.abs(avgTS) <= 4 ? 'ok' : 'warn';
 
       document.getElementById('backtestStats').innerHTML = `
         <div class="stat-item">
@@ -2088,12 +2601,24 @@
           <div class="stat-value">${maxSMAPE.toFixed(2)}%</div>
         </div>
         <div class="stat-item">
+          <div class="stat-label">평균 TS</div>
+          <div class="stat-value diag-value ${tsClass}">${avgTS.toFixed(2)}</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">과적합 비율</div>
+          <div class="stat-value diag-value ${overfitClass}">${overfitRatio}x</div>
+        </div>
+        <div class="stat-item">
           <div class="stat-label">검증 방식</div>
           <div class="stat-value">Rolling Origin</div>
         </div>
         <div class="stat-item">
           <div class="stat-label">미래 누수</div>
           <div class="stat-value">없음</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">일반화 판정</div>
+          <div class="stat-value diag-value ${overfitClass}">${parseFloat(overfitRatio) > 3 ? '⚠️ 과적합 의심' : '✅ 일반화 양호'}</div>
         </div>
       `;
     }
@@ -2310,6 +2835,121 @@
 
     function sleep(ms) {
       return new Promise(r => setTimeout(r, ms));
+    }
+
+    // ── AI 인사이트 생성 ─────────────────────────────────────
+    async function loadInsight() {
+      const btn = document.getElementById('insightBtn');
+      const result = document.getElementById('insightResult');
+      if (!state.results) {
+        alert('먼저 예측을 실행해주세요.');
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = '⏳ 생성 중...';
+      result.innerHTML = `
+        <div style="padding:32px;text-align:center;color:var(--text-soft);font-size:15px;background:var(--surface-soft);border-radius:14px;">
+          <div style="font-size:24px;margin-bottom:10px;">🤖</div>
+          Claude AI가 예측 결과를 분석 중입니다... (10~20초 소요)
+        </div>`;
+
+      try {
+        const { ensemble, stl, horizon } = state.results;
+        const d = state._diagnostics || {};
+
+        const payload = {
+          smape:          ensemble.smape,
+          mase:           ensemble.mase,
+          ts:             ensemble.ts ?? 0,
+          r2:             ensemble.r2,
+          trendStrength:  stl.trendStrength,
+          seasonStrength: stl.seasonStrength,
+          period:         stl.period,
+          freq:           state.results.freq || state._diagnostics?.freq || 'MS',
+          horizon:        horizon,
+          n:              d.n || state.values.length,
+          dateStart:      d.dateStart || state.dates[0] || '',
+          dateEnd:        d.dateEnd   || state.dates[state.dates.length-1] || '',
+          valCol:         state.valueCol || '값',
+          naiveSmape:     state._naiveSmape || 0,
+          predValues:     ensemble.pred || [],
+          biasStatus:     ensemble.bias_status || '편향 없음',
+          strategy:       state._strategy || '',
+        };
+
+        const resp = await fetch('/insight', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await resp.json();
+        if (!data.ok) throw new Error(data.error || '인사이트 생성 실패');
+
+        // 마크다운 → HTML 간단 변환
+        const html = data.insight
+          .replace(/## (.+)/g, '<h3 style="font-size:16px;font-weight:800;margin:18px 0 8px;color:var(--text);">$1</h3>')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\n/g, '<br>');
+
+        result.innerHTML = `
+          <div style="padding:20px;background:var(--surface-soft);border-radius:14px;border:1px solid var(--border);line-height:1.8;font-size:15px;color:var(--text-soft);">
+            ${html}
+            <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--text-muted);">
+              ※ 본 인사이트는 Claude AI가 예측 수치를 바탕으로 생성한 참고 자료입니다. 실제 의사결정 시 도메인 전문가의 검토를 병행하세요.
+            </div>
+          </div>`;
+      } catch (e) {
+        result.innerHTML = `<div style="padding:20px;background:var(--red-soft);border-radius:14px;color:var(--red);">오류: ${e.message}</div>`;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '✨ AI 인사이트 재생성';
+      }
+    }
+
+    // ── 뉴스 검색 ────────────────────────────────────────────
+    async function loadNews() {
+      const keyword = document.getElementById('newsKeyword').value.trim();
+      if (!keyword) { alert('키워드를 입력해주세요.'); return; }
+
+      const btn = document.getElementById('newsBtn');
+      const result = document.getElementById('newsResult');
+      btn.disabled = true;
+      btn.textContent = '⏳ 검색 중...';
+      result.innerHTML = `
+        <div style="padding:32px;text-align:center;color:var(--text-soft);font-size:15px;background:var(--surface-soft);border-radius:14px;">
+          뉴스를 불러오는 중입니다...
+        </div>`;
+
+      try {
+        const resp = await fetch(`/news?keyword=${encodeURIComponent(keyword)}&lang=ko`);
+        const data = await resp.json();
+        if (!data.ok) throw new Error(data.error || '뉴스 검색 실패');
+
+        if (!data.articles || data.articles.length === 0) {
+          result.innerHTML = `<div style="padding:24px;text-align:center;color:var(--text-soft);background:var(--surface-soft);border-radius:14px;">
+            "${keyword}"에 대한 최신 뉴스를 찾을 수 없습니다.
+          </div>`;
+          return;
+        }
+
+        const cards = data.articles.map(a => `
+          <a href="${a.url}" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div class="news-card">
+              ${a.urlToImage ? `<img src="${a.urlToImage}" onerror="this.style.display='none'" style="width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:10px;">` : ''}
+              <div class="news-source">${a.source} · ${a.publishedAt}</div>
+              <div class="news-title">${a.title}</div>
+              <div class="news-desc">${a.description ? a.description.slice(0, 100) + '...' : ''}</div>
+            </div>
+          </a>
+        `).join('');
+
+        result.innerHTML = `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">${cards}</div>`;
+      } catch (e) {
+        result.innerHTML = `<div style="padding:20px;background:var(--red-soft);border-radius:14px;color:var(--red);">오류: ${e.message}</div>`;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🔍 뉴스 검색';
+      }
     }
   </script>
 </body>
