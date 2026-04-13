@@ -381,4 +381,4 @@ if __name__ == "__main__":
     print("  접속: http://localhost:8007")
     print("  엔진:", "✅ 준비됨" if ENGINE_OK else "❌ 없음")
     print("=" * 55)
-    uvicorn.run(app, host="0.0.0.0", port=8007, reload=False)
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8007)), reload=False)
