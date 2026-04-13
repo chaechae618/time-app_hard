@@ -366,6 +366,7 @@ async def get_insight(payload: dict):
                 }
             )
             result = resp.json()
+            print("Anthropic API 응답:", result)  # 이 줄 추가
 
         text = result.get("content", [{}])[0].get("text", "인사이트 생성에 실패했습니다.")
         return {"ok": True, "insight": text}
