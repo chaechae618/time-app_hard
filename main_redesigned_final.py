@@ -25,7 +25,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], all
 
 @app.get("/", response_class=HTMLResponse)
 async def serve_html():
-    html_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "index_redesigned.html")
+    html_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "index_redesigned_final.html")
     with open(html_path, "r", encoding="utf-8") as f:
         return f.read()
 
