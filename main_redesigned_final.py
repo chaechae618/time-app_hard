@@ -11,7 +11,7 @@ import io, sys, os, uvicorn, traceback, httpx
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 try:
-    from forecast_engine_real import run_pipeline
+    from forecast_engine_final import run_pipeline
     ENGINE_OK = True
 except ImportError:
     ENGINE_OK = False
