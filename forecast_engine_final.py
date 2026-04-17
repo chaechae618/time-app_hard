@@ -30,7 +30,7 @@ def detect_frequency(date_series: pd.Series) -> str:
 # ─────────────────────────────────────────────
 # 2. 데이터 진단 (전처리 정보 포함)
 # ─────────────────────────────────────────────
-def diagnose(df, date_col, value_col):
+def diagnose(df, date_col, value_col, original_null_count=None):
     values = df[value_col].values.astype(float)
     n = len(values)
     null_mask = np.isnan(values)
@@ -59,7 +59,9 @@ def diagnose(df, date_col, value_col):
     kurtosis = round(float(stats.kurtosis(clean_vals)), 4) if len(clean_vals) > 3 else 0
 
     # 전처리 방법 결정
-    missing_method = "선형 보간(Linear Interpolation)" if null_mask.sum() > 0 else "결측치 없음"
+    # original_null_count가 전달된 경우 그것을 우선 사용 (dropna 전 원본 기준)
+    effective_null_count = original_null_count if original_null_count is not None else int(null_mask.sum())
+    missing_method = "선형 보간(Linear Interpolation)" if effective_null_count > 0 else "결측치 없음"
     outlier_method = "IQR 기반 클리핑 (2.5σ)" if outlier_count > 0 else "이상치 없음"
     norm_method = "RevIN (Reversible Instance Normalization)"
     log_needed = False
@@ -538,7 +540,8 @@ def generate_future_dates(last_date, freq, horizon):
 # 15. 메인 파이프라인
 # ─────────────────────────────────────────────
 def run_pipeline(df, date_col, value_col,
-                 horizon=12, ci=0.90, models_to_run=None):
+                 horizon=12, ci=0.90, models_to_run=None,
+                 original_null_count=None):
 
     allowed = ['ets', 'arima', 'rf']
     if models_to_run is None:
@@ -548,7 +551,7 @@ def run_pipeline(df, date_col, value_col,
         models_to_run = ['ets', 'arima', 'rf']
 
     # Step 1: 진단
-    diag = diagnose(df, date_col, value_col)
+    diag = diagnose(df, date_col, value_col, original_null_count=original_null_count)
     freq = diag['freq']
     n = diag['n']
 
