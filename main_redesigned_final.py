@@ -51,7 +51,12 @@ async def forecast(
         df = df.rename(columns={date_col: "ds", val_col: "y"})
         df["ds"] = pd.to_datetime(df["ds"], errors="coerce")
         df["y"]  = pd.to_numeric(df["y"], errors="coerce")
-        df = df[["ds", "y"]].dropna().reset_index(drop=True)
+        df = df[["ds", "y"]].reset_index(drop=True)
+
+        # ── 원본 결측치 수를 dropna() 전에 기록 ──────────────
+        original_null_count = int(df["y"].isna().sum())
+
+        df = df.dropna().reset_index(drop=True)
 
         if len(df) < 20:
             return JSONResponse({"error": "데이터가 20개 미만입니다."}, status_code=400)
@@ -60,7 +65,8 @@ async def forecast(
         if not model_list:
             model_list = ["ets", "arima", "rf"]
 
-        result = run_pipeline(df, "ds", "y", horizon=horizon, ci=ci/100, models_to_run=model_list)
+        result = run_pipeline(df, "ds", "y", horizon=horizon, ci=ci/100, models_to_run=model_list,
+                              original_null_count=original_null_count)
 
         values_orig = df["y"].values.tolist()
         dates_orig  = [str(d)[:10] for d in df["ds"]]
@@ -168,7 +174,7 @@ async def forecast(
 
             "diagnostics": {
                 "n":            diag.get("n", 0),
-                "nullCount":    diag.get("null_count", 0),
+                "nullCount":    original_null_count,          # ← 원본 결측치 수 (dropna 전)
                 "outlierCount": diag.get("outlier_count", 0),
                 "outlierPct":   diag.get("outlier_pct", 0),
                 "freq":         diag.get("freq", "unknown"),
